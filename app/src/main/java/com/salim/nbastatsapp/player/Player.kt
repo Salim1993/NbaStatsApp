@@ -1,7 +1,11 @@
 package com.salim.nbastatsapp.player
 
 
-import androidx.room.*
+import androidx.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Relation
 import com.salim.nbastatsapp.team.Team
 import com.squareup.moshi.Json
 
@@ -30,14 +34,14 @@ data class Player(
      */
     @ColumnInfo(name = "height_feet")
     @Json(name = "height_feet")
-    val heightFeet: Int,
+    val heightFeet: Int?,
 
     /**
      * The height of the player in inches.
      */
     @ColumnInfo(name = "height_inches")
     @Json(name = "height_inches")
-    val heightInches: Int,
+    val heightInches: Int?,
 
     /**
      * The last name of the player.
@@ -65,7 +69,7 @@ data class Player(
      */
     @ColumnInfo(name = "weight_pounds")
     @Json(name = "weight_pounds")
-    val weightPounds: Int
+    val weightPounds: Int?
 )
 
 data class PlayerAndTeam(
@@ -74,5 +78,5 @@ data class PlayerAndTeam(
         parentColumn = "id",
         entityColumn = "id"
     )
-    val team: Team
+    val team: Team?
 )

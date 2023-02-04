@@ -1,5 +1,6 @@
 package com.salim.nbastatsapp.player
 
+import android.util.JsonToken
 import com.salim.nbastatsapp.team.Team
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
@@ -16,26 +17,26 @@ class PlayerTypeAdapter(moshi: Moshi): JsonAdapter<Player>() {
     private val teamTypeAdapter: JsonAdapter<Team> = moshi.adapter(Team::class.java)
 
     @FromJson
-    override fun fromJson(reader: JsonReader): Player? {
+    override fun fromJson(reader: JsonReader): Player {
         reader.beginObject()
         var id: Int = 0
         var firstName: String = ""
-        var heightFeet: Int = 0
-        var heightInches: Int = 0
+        var heightFeet: Int? = null
+        var heightInches: Int? = null
         var lastName: String = ""
         var position: String = ""
         var team: String = ""
-        var weightPounds: Int = 0
+        var weightPounds: Int? = null
         while (reader.hasNext()) {
             when (reader.selectName(options)) {
                 ID_NUMBER -> id = reader.nextInt()
                 FIRST_NAME_NUMBER -> firstName = reader.nextString()
-                HEIGHT_FEET_NUMBER -> heightFeet = reader.nextInt()
-                HEIGHT_INCHES_NUMBER -> heightInches = reader.nextInt()
+                HEIGHT_FEET_NUMBER -> heightFeet = checkNullableInt(reader)
+                HEIGHT_INCHES_NUMBER -> heightInches = checkNullableInt(reader)
                 LAST_NAME_NUMBER -> lastName = reader.nextString()
                 POSITION_NUMBER -> position = reader.nextString()
                 TEAM_NUMBER -> team = teamTypeAdapter.fromJson(reader)?.name ?: ""
-                WEIGHT_POUNDS_NUMBER -> weightPounds = reader.nextInt()
+                WEIGHT_POUNDS_NUMBER -> weightPounds = checkNullableInt(reader)
                 ERROR_JSON_NUMBER -> {
                     reader.skipValue()
                 }
@@ -43,6 +44,14 @@ class PlayerTypeAdapter(moshi: Moshi): JsonAdapter<Player>() {
         }
         reader.endObject()
         return Player(id, firstName, heightFeet, heightInches, lastName, position, team, weightPounds)
+    }
+
+    private fun checkNullableInt(reader: JsonReader): Int? {
+        return if (reader.peek() == JsonReader.Token.NULL){
+            null
+        } else {
+            reader.nextInt()
+        }
     }
 
     @ToJson

@@ -3,6 +3,7 @@ package com.salim.nbastatsapp.di
 import android.content.Context
 import androidx.room.Room
 import com.salim.nbastatsapp.database.NbaAppDatabase
+import com.salim.nbastatsapp.database.NbaAppDatabase.Companion.MIGRATION_1_2
 import com.salim.nbastatsapp.player.PlayerDao
 import com.salim.nbastatsapp.team.TeamDao
 import dagger.Module
@@ -20,11 +21,14 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): NbaAppDatabase {
+        // Array of all migrations
         return Room.databaseBuilder(
             context = context,
             klass = NbaAppDatabase::class.java,
             name = NbaAppDatabase.DATABASE_NAME
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     @Provides
