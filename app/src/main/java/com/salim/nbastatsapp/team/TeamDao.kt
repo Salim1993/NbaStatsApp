@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Update
 import androidx.room.Delete
 import androidx.room.Query
-import com.salim.nbastatsapp.Team
 
 @Dao
 interface TeamDao {

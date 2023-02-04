@@ -2,7 +2,7 @@ package com.salim.nbastatsapp.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.salim.nbastatsapp.Team
+import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.player.PlayerDao
 import com.salim.nbastatsapp.team.TeamDao

@@ -1,4 +1,4 @@
-package com.salim.nbastatsapp
+package com.salim.nbastatsapp.team
 
 
 import androidx.room.ColumnInfo

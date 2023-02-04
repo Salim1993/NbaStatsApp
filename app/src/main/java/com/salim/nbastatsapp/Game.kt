@@ -1,6 +1,7 @@
 package com.salim.nbastatsapp
 
 
+import com.salim.nbastatsapp.team.Team
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

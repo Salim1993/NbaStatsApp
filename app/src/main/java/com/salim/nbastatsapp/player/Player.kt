@@ -1,11 +1,8 @@
 package com.salim.nbastatsapp.player
 
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.salim.nbastatsapp.Team
+import androidx.room.*
+import com.salim.nbastatsapp.team.Team
 import com.squareup.moshi.Json
 
 /**
@@ -59,9 +56,9 @@ data class Player(
     /**
      * The team of the player.
      */
-    @Embedded(prefix = "team")
+    @ColumnInfo(name = "team_name")
     @Json(name = "team")
-    val team: Team,
+    val teamName: String,
 
     /**
      * The weight of the player in pounds.
@@ -69,4 +66,13 @@ data class Player(
     @ColumnInfo(name = "weight_pounds")
     @Json(name = "weight_pounds")
     val weightPounds: Int
+)
+
+data class PlayerAndTeam(
+    @Embedded val player: Player,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id"
+    )
+    val team: Team
 )

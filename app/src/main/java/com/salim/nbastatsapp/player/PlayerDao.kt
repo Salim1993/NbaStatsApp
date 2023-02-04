@@ -1,16 +1,16 @@
 package com.salim.nbastatsapp.player
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlayerDao {
 
     @Insert
     suspend fun insertPlayer(player: Player)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPlayerList(list: List<Player>)
 
     @Update
     suspend fun updatePlayer(player: Player)
@@ -19,8 +19,12 @@ interface PlayerDao {
     suspend fun deletePlayer(player: Player)
 
     @Query("SELECT * FROM players")
-    suspend fun getAllPlayers(): List<Player>
+    fun getAllPlayers(): Flow<List<Player>>
 
     @Query("SELECT * FROM players WHERE id = :id")
-    suspend fun getPlayerById(id: Int): Player
+    fun getPlayerById(id: Int): Flow<Player>
+
+    @Transaction
+    @Query("SELECT * FROM players")
+    fun getAllPlayersWithTeam(): Flow<List<PlayerAndTeam>>
 }
