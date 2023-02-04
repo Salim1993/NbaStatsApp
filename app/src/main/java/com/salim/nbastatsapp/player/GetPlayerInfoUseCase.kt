@@ -1,5 +1,6 @@
 package com.salim.nbastatsapp.player
 
+import com.salim.nbastatsapp.network.NbaStatsApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -12,7 +13,7 @@ import javax.inject.Inject
  * A a use case or repository class that uses Retrofit to make API calls and retrieve info of [Player] .
  */
 class GetPlayerInfoUseCase @Inject constructor(
-    private val playerApiService: PlayerApiService,
+    private val nbaStatsApiService: NbaStatsApiService,
     private val playerDao: PlayerDao
 ) {
 
@@ -24,7 +25,7 @@ class GetPlayerInfoUseCase @Inject constructor(
     suspend fun getPlayerInfo(id: Int){
         try {
             withContext(Dispatchers.IO) {
-                val players = playerApiService.getPlayers()
+                val players = nbaStatsApiService.getPlayers()
                 playerDao.insertPlayerList(players)
             }
         } catch (e: UnknownHostException) {
