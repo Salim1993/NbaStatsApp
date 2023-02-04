@@ -6,25 +6,26 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Update
 import androidx.room.Delete
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TeamDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeam(team: Team)
+    suspend fun insertTeam(team: Team)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllTeams(teams: List<Team>)
+    suspend fun insertAllTeams(teams: List<Team>)
 
     @Update
-    fun updateTeam(team: Team)
+    suspend fun updateTeam(team: Team)
 
     @Delete
-    fun deleteTeam(team: Team)
+    suspend fun deleteTeam(team: Team)
 
     @Query("SELECT * FROM teams")
-    fun getAllTeams(): List<Team>
+    fun getAllTeams(): Flow<List<Team>>
 
     @Query("SELECT * FROM teams WHERE id = :id")
-    fun getTeamById(id: Int): Team
+    fun getTeamById(id: Int): Flow<Team>
 }

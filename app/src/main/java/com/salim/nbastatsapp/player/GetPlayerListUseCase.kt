@@ -36,17 +36,4 @@ class GetPlayerListUseCase @Inject constructor(
             Timber.e("Got http exception in getPlayersApi. Http Status: ${e.code()} - Http Message: ${e.message()}")
         }
     }
-
-    suspend fun getPlayerInfo(id: Int){
-        try {
-            withContext(Dispatchers.IO) {
-                val player = nbaStatsApiService.getPlayerInfo(id)
-                playerDao.insertPlayer(player)
-            }
-        } catch (e: UnknownHostException) {
-            Timber.e("Got unknown exception in getPlayersApi")
-        } catch (e: HttpException) {
-            Timber.e("Got http exception in getPlayersApi. Http Status: ${e.code()} - Http Message: ${e.message()}")
-        }
-    }
 }

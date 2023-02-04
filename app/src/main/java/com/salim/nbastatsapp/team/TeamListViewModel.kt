@@ -1,28 +1,21 @@
-package com.salim.nbastatsapp.player
+package com.salim.nbastatsapp.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.salim.nbastatsapp.team.GetTeamListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class PlayerListViewModel @Inject constructor(
-    private val getPlayerListUseCase: GetPlayerListUseCase,
+class TeamListViewModel @Inject constructor(
     private val getTeamListUseCase: GetTeamListUseCase
 ): ViewModel() {
 
-    val playerList = getPlayerListUseCase.playerListFlow
+    val teamList = getTeamListUseCase.teamListFlow
 
     init {
-        getPlayerList()
         getTeamList()
-    }
-
-    private fun getPlayerList() = viewModelScope.launch {
-        getPlayerListUseCase.getPlayers()
     }
 
     private fun getTeamList() = viewModelScope.launch {
