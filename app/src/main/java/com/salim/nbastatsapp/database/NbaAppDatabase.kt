@@ -9,7 +9,7 @@ import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.player.PlayerDao
 import com.salim.nbastatsapp.team.TeamDao
 
-@Database(entities = [Player::class, Team::class], version = 2)
+@Database(entities = [Player::class, Team::class], version = 2, exportSchema = true)
 abstract class NbaAppDatabase : RoomDatabase() {
 
     abstract fun playerDao(): PlayerDao
