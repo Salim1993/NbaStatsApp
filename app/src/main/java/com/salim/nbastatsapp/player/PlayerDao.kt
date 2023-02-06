@@ -24,6 +24,9 @@ interface PlayerDao {
     @Query("SELECT * FROM players WHERE id = :id")
     fun getPlayerById(id: Int): Flow<Player>
 
+    @Query("SELECT * FROM players WHERE id = :id")
+    suspend fun getPlayerByIdSynchronous(id: Int): Player
+
     @Transaction
     @Query("SELECT * FROM players")
     fun getAllPlayersWithTeam(): Flow<List<PlayerAndTeam>>

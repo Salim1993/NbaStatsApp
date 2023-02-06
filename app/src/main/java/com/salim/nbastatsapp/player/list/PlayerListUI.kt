@@ -1,4 +1,4 @@
-package com.salim.nbastatsapp.player
+package com.salim.nbastatsapp.player.list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -16,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.salim.nbastatsapp.R
+import com.salim.nbastatsapp.player.Player
+import com.salim.nbastatsapp.player.PlayerAndTeam
 import com.salim.nbastatsapp.team.Team
 
 @Composable

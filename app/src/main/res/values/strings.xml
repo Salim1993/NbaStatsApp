@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">NbaStatsApp</string>
 
-
     <string name="not_on_team">Not on team</string>
+
+    <!-- Player Details -->
+    <string name="player_name">Player Name: %s</string>
+    <string name="position">Position: %s</string>
 </resources>

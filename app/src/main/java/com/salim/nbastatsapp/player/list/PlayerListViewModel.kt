@@ -1,4 +1,4 @@
-package com.salim.nbastatsapp.player
+package com.salim.nbastatsapp.player.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

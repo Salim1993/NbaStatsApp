@@ -1,6 +1,7 @@
-package com.salim.nbastatsapp.player
+package com.salim.nbastatsapp.player.list
 
 import com.salim.nbastatsapp.network.NbaStatsApiService
+import com.salim.nbastatsapp.player.PlayerDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -10,19 +11,21 @@ import javax.inject.Inject
 
 
 /**
- * A a use case or repository class that uses Retrofit to make API calls and retrieve info of [Player] .
+ * A a use case or repository class that uses Retrofit to make API calls and retrieve list of [Player] .
  */
-class GetPlayerInfoUseCase @Inject constructor(
+class GetPlayerListUseCase @Inject constructor(
     private val nbaStatsApiService: NbaStatsApiService,
     private val playerDao: PlayerDao
 ) {
 
+    val playerListFlow = playerDao.getAllPlayersWithTeam()
+
     /**
-     * Makes a call to the API to retrieve a info of a [Player] object.
+     * Makes a call to the API to retrieve a list of [Player] objects.
      *
-     * @return [Player] object.
+     * @return A list of [Player] objects.
      */
-    suspend fun getPlayerInfo(id: Int){
+    suspend fun getPlayers(){
         try {
             withContext(Dispatchers.IO) {
                 val players = nbaStatsApiService.getPlayers()

@@ -70,7 +70,10 @@ data class Player(
     @ColumnInfo(name = "weight_pounds")
     @Json(name = "weight_pounds")
     val weightPounds: Int?
-)
+) {
+
+    fun getFullName() = "$firstName $lastName"
+}
 
 data class PlayerAndTeam(
     @Embedded val player: Player,
