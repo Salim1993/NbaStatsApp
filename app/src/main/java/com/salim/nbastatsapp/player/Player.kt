@@ -78,8 +78,8 @@ data class Player(
 data class PlayerAndTeam(
     @Embedded val player: Player,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "id"
+        parentColumn = "team_name",
+        entityColumn = "full_name"
     )
     val team: Team?
 )

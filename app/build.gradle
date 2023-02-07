@@ -100,7 +100,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling"
     debugImplementation "androidx.compose.ui:ui-test-manifest"
 
-    //networking
+    // networking
     implementation "com.squareup.moshi:moshi:1.14.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
@@ -108,20 +108,24 @@ dependencies {
     implementation 'com.serjltt.moshi:moshi-lazy-adapters:2.2'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
 
-    //dagger
+    // dagger
     implementation 'com.google.dagger:hilt-android:2.44.2'
     kapt 'com.google.dagger:hilt-compiler:2.44.2'
     implementation 'androidx.hilt:hilt-navigation-compose:1.1.0-alpha01'
 
-    //room
+    // room
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    //logging
+    // logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // coil
+    implementation 'io.coil-kt:coil:2.2.2'
+    implementation 'io.coil-kt:coil-compose:2.2.2'
 }
 
 kapt {

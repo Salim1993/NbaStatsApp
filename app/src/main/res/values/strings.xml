@@ -2,6 +2,7 @@
     <string name="app_name">NbaStatsApp</string>
 
     <string name="not_on_team">Not on team</string>
+    <string name="team_logo_content_description">%s logo</string>
 
     <!-- Player Details -->
     <string name="player_name">Player Name: %s</string>

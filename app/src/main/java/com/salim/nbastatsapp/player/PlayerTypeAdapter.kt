@@ -35,7 +35,7 @@ class PlayerTypeAdapter(moshi: Moshi): JsonAdapter<Player>() {
                 HEIGHT_INCHES_NUMBER -> heightInches = checkNullableInt(reader)
                 LAST_NAME_NUMBER -> lastName = reader.nextString()
                 POSITION_NUMBER -> position = reader.nextString()
-                TEAM_NUMBER -> team = teamTypeAdapter.fromJson(reader)?.name ?: ""
+                TEAM_NUMBER -> team = teamTypeAdapter.fromJson(reader)?.fullName ?: ""
                 WEIGHT_POUNDS_NUMBER -> weightPounds = checkNullableInt(reader)
                 ERROR_JSON_NUMBER -> {
                     reader.skipValue()
