@@ -1,5 +1,6 @@
 package com.salim.nbastatsapp.player.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,20 +24,22 @@ import com.salim.nbastatsapp.team.Team
 @Composable
 fun PlayerListScreen(
     modifier: Modifier,
-    playerListViewModel: PlayerListViewModel = viewModel()
+    playerListViewModel: PlayerListViewModel = viewModel(),
+    onClickPlayer: (Int) -> Unit = {}
 ) {
     val playerListState = playerListViewModel.playerList.collectAsState(initial = emptyList())
-    PlayerList(modifier = modifier, list = playerListState.value)
+    PlayerList(modifier = modifier, list = playerListState.value, onClickPlayer = onClickPlayer)
 }
 
 @Composable
 fun PlayerList(
     modifier: Modifier,
-    list: List<PlayerAndTeam>
+    list: List<PlayerAndTeam>,
+    onClickPlayer: (Int) -> Unit = {}
 ) {
     LazyColumn(modifier = modifier) {
         items(list) {
-            PlayerCard(modifier = modifier, playerAndTeam = it)
+            PlayerCard(modifier = modifier, playerAndTeam = it, onClickPlayer = onClickPlayer)
         }
     }
 }
@@ -44,7 +47,8 @@ fun PlayerList(
 @Composable
 fun PlayerCard(
     modifier: Modifier,
-    playerAndTeam: PlayerAndTeam
+    playerAndTeam: PlayerAndTeam,
+    onClickPlayer: (Int) -> Unit = {}
 ) {
     val player = playerAndTeam.player
     val team = playerAndTeam.team
@@ -52,6 +56,9 @@ fun PlayerCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable {
+                onClickPlayer(player.id)
+            }
     ) {
         Text(
             modifier = modifier.padding(end = 8.dp),

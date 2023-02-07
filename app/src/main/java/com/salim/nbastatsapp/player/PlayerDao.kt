@@ -1,12 +1,19 @@
 package com.salim.nbastatsapp.player
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Update
+import androidx.room.Delete
+import androidx.room.Query
+import androidx.room.Transaction
+
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlayerDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlayer(player: Player)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
