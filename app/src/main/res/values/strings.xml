@@ -8,6 +8,8 @@
     <string name="player_name">Player Name: %s</string>
     <string name="position">Position: %s</string>
     <string name="height">Height: %s</string>
+    <string name="height_unavailable">Height: Unavailable</string>
     <string name="team">Team: %s</string>
     <string name="weight">Weight: %s lb</string>
+    <string name="weight_unavailable">Weight: Unavailable</string>
 </resources>

@@ -62,7 +62,6 @@ fun PlayerDetailsPage(
             )
         }
 
-
         CreatePlayerDetailText(
             modifier = modifier,
             text = player.getFullName(),
@@ -75,11 +74,15 @@ fun PlayerDetailsPage(
             stringResourceId = R.string.position
         )
 
-        CreatePlayerDetailText(
-            modifier = modifier,
-            text = player.getFullHeight(),
-            stringResourceId = R.string.height
-        )
+        if(player.heightFeet == null || player.heightInches == null) {
+            Text(modifier = modifier.padding(8.dp), text = stringResource(id = R.string.height_unavailable))
+        } else {
+            CreatePlayerDetailText(
+                modifier = modifier,
+                text = player.getFullHeight(),
+                stringResourceId = R.string.height
+            )
+        }
 
         CreatePlayerDetailText(
             modifier = modifier,
@@ -87,11 +90,15 @@ fun PlayerDetailsPage(
             stringResourceId = R.string.team
         )
 
-        CreatePlayerDetailText(
-            modifier = modifier,
-            text = player.weightPounds.toString(),
-            stringResourceId = R.string.weight
-        )
+        if(player.weightPounds == null) {
+            Text(modifier = modifier.padding(8.dp), text = stringResource(id = R.string.weight_unavailable))
+        } else {
+            CreatePlayerDetailText(
+                modifier = modifier,
+                text = player.weightPounds.toString(),
+                stringResourceId = R.string.weight
+            )
+        }
     }
 }
 
