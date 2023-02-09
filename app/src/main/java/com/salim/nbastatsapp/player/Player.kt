@@ -73,6 +73,15 @@ data class Player(
 ) {
 
     fun getFullName() = "$firstName $lastName"
+
+    fun getFullPosition() = when(position.lowercase()) {
+        "g" -> "Guard"
+        "f" -> "Forward"
+        "c" -> "Center"
+        else -> "No Position"
+    }
+
+    fun getFullHeight() = "$heightFeet feet $heightInches inches"
 }
 
 data class PlayerAndTeam(
