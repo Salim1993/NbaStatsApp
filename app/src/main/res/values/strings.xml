@@ -4,6 +4,10 @@
     <string name="not_on_team">Not on team</string>
     <string name="team_logo_content_description">%s logo</string>
 
+    <!-- Bottom Navigation -->
+    <string name="player_list">Player List</string>
+    <string name="teams">Teams</string>
+
     <!-- Player Details -->
     <string name="player_name">Player Name: %s</string>
     <string name="position">Position: %s</string>

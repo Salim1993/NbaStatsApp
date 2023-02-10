@@ -12,3 +12,7 @@ object PlayerDetailsNavigationInfo {
 object PlayerListNavigationInfo {
     const val PLAYER_LIST_DESTINATION_ROUTE = "player_list"
 }
+
+object TeamsListNavigationInfo {
+    const val TEAMS_LIST_DESTINATION_ROUTE = "teams_list"
+}
