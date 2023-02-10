@@ -16,3 +16,12 @@ object PlayerListNavigationInfo {
 object TeamsListNavigationInfo {
     const val TEAMS_LIST_DESTINATION_ROUTE = "teams_list"
 }
+
+object TeamDetailsNavigationInfo {
+    const val TEAM_DETAIL_DESTINATION_ARG = "team_name"
+    private const val TEAM_DETAIL_DESTINATION_ROOT = "team_details"
+    const val TEAM_DETAIL_DESTINATION_ROUTE =
+        "$TEAM_DETAIL_DESTINATION_ROOT/{$TEAM_DETAIL_DESTINATION_ARG}"
+
+    fun buildTeamDetailRoute(argument: Int) = "$TEAM_DETAIL_DESTINATION_ROOT/$argument"
+}

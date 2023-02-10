@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 
 /**
- * A a use case or repository class that uses Retrofit to make API calls and retrieve info of [Player] .
+ * A a use case or repository class that uses Retrofit to make API calls and retrieve info of [Team] .
  */
 class GetTeamInfoUseCase @Inject constructor(
     private val nbaStatsApiService: NbaStatsApiService,
@@ -26,11 +26,11 @@ class GetTeamInfoUseCase @Inject constructor(
     val teamFlow = _teamFlow.asSharedFlow()
 
     /**
-     * Makes a call to the API to retrieve a info of a [Player] object.
+     * Makes a call to the API to retrieve a info of a [Team] object.
      *
-     * @return [Player] object.
+     * @return [Team] object.
      */
-    suspend fun getPlayerInfo(id: Int) {
+    suspend fun getTeamInfo(id: Int) {
         withContext(Dispatchers.IO) {
             var player = teamDao.getTeamByIdSynchronous(id)
             try {

@@ -1,4 +1,4 @@
-package com.salim.nbastatsapp.player.details
+package com.salim.nbastatsapp.team.details
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,35 +16,34 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.salim.nbastatsapp.R
-import com.salim.nbastatsapp.player.Player
+import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.ui.theme.ComposeSizeConstants
 import com.salim.nbastatsapp.utilities.LogoManager
 
 @Composable
-fun PlayerDetailScreen(
+fun TeamDetailScreen(
     modifier: Modifier,
-    playerDetailViewModel: PlayerDetailViewModel = viewModel()
+    teamDetailViewModel: TeamDetailViewModel = viewModel()
 ) {
-    val playerState = playerDetailViewModel.playerFlow.collectAsState(
-        initial = Player(
+    val teamState = teamDetailViewModel.teamFlow.collectAsState(
+        initial = Team(
             id = 0,
-            firstName = "",
-            heightFeet = null,
-            heightInches = null,
-            lastName = "",
-            position = "",
-            teamName = "",
-            weightPounds = null
+            abbreviation = "",
+            city = "",
+            conference = "",
+            division = "",
+            fullName = "",
+            name = ""
         )
     )
     
-    PlayerDetailsPage(modifier = modifier, player = playerState.value)
+    PlayerDetailsPage(modifier = modifier, team = teamState.value)
 }
 
 @Composable
 fun PlayerDetailsPage(
     modifier: Modifier,
-    player: Player
+    team: Team
 ) {
     Column(modifier = modifier
         .fillMaxWidth()
@@ -57,48 +56,28 @@ fun PlayerDetailsPage(
                 modifier = modifier
                     .fillMaxWidth(ComposeSizeConstants.DETAIL_PAGE_LOGO_SIZE)
                     .padding(8.dp),
-                model = LogoManager.getProperLogo(player.teamName),
-                contentDescription = stringResource(R.string.team_logo_content_description, player.teamName)
+                model = LogoManager.getProperLogo(team.fullName),
+                contentDescription = stringResource(R.string.team_logo_content_description, team.fullName)
             )
         }
 
         CreatePlayerDetailText(
             modifier = modifier,
-            text = player.getFullName(),
-            stringResourceId = R.string.player_name
-        )
-
-        CreatePlayerDetailText(
-            modifier = modifier,
-            text = player.getFullPosition(),
-            stringResourceId = R.string.position
-        )
-
-        if(player.heightFeet == null || player.heightInches == null) {
-            Text(modifier = modifier.padding(8.dp), text = stringResource(id = R.string.height_unavailable))
-        } else {
-            CreatePlayerDetailText(
-                modifier = modifier,
-                text = player.getFullHeight(),
-                stringResourceId = R.string.height
-            )
-        }
-
-        CreatePlayerDetailText(
-            modifier = modifier,
-            text = player.teamName,
+            text = team.fullName,
             stringResourceId = R.string.team
         )
 
-        if(player.weightPounds == null) {
-            Text(modifier = modifier.padding(8.dp), text = stringResource(id = R.string.weight_unavailable))
-        } else {
-            CreatePlayerDetailText(
-                modifier = modifier,
-                text = player.weightPounds.toString(),
-                stringResourceId = R.string.weight
-            )
-        }
+        CreatePlayerDetailText(
+            modifier = modifier,
+            text = team.city,
+            stringResourceId = R.string.city
+        )
+
+        CreatePlayerDetailText(
+            modifier = modifier,
+            text = team.conference,
+            stringResourceId = R.string.conference
+        )
     }
 }
 

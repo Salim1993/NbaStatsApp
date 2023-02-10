@@ -16,4 +16,8 @@
     <string name="team">Team: %s</string>
     <string name="weight">Weight: %s lb</string>
     <string name="weight_unavailable">Weight: Unavailable</string>
+
+    <!-- Player Details -->
+    <string name="city">City: %s</string>
+    <string name="conference">Conference: %s</string>
 </resources>

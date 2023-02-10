@@ -15,6 +15,8 @@ import com.salim.nbastatsapp.player.details.PlayerDetailScreen
 import com.salim.nbastatsapp.player.details.PlayerDetailViewModel
 import com.salim.nbastatsapp.player.list.PlayerListScreen
 import com.salim.nbastatsapp.player.list.PlayerListViewModel
+import com.salim.nbastatsapp.team.details.TeamDetailScreen
+import com.salim.nbastatsapp.team.details.TeamDetailViewModel
 import com.salim.nbastatsapp.team.list.TeamListScreen
 import com.salim.nbastatsapp.team.list.TeamListViewModel
 
@@ -41,7 +43,9 @@ fun NavigationHost(
         }
         composable(
             route = PlayerDetailsNavigationInfo.PLAYER_DETAIL_DESTINATION_ROUTE,
-            arguments = listOf(navArgument("player_name") { type = NavType.IntType })
+            arguments = listOf(navArgument(PlayerDetailsNavigationInfo.PLAYER_DETAIL_DESTINATION_ARG) {
+                type = NavType.IntType
+            })
         ) {
             val viewModel = hiltViewModel<PlayerDetailViewModel>()
             PlayerDetailScreen(modifier = modifier, playerDetailViewModel = viewModel)
@@ -52,10 +56,18 @@ fun NavigationHost(
                 modifier = modifier,
                 teamListViewModel = viewModel,
                 onClickTeam = {
-                    // TODO: replace below with correct navigation
-                    //navController.navigateSingleTopTo(PlayerDetailsNavigationInfo.buildPlayerDetailRoute(it))
+                    navController.navigateSingleTopTo(TeamDetailsNavigationInfo.buildTeamDetailRoute(it))
                 }
             )
+        }
+        composable(
+            route = TeamDetailsNavigationInfo.TEAM_DETAIL_DESTINATION_ROUTE,
+            arguments = listOf(navArgument(TeamDetailsNavigationInfo.TEAM_DETAIL_DESTINATION_ARG) {
+                type = NavType.IntType
+            })
+        ) {
+            val viewModel = hiltViewModel<TeamDetailViewModel>()
+            TeamDetailScreen(modifier = modifier, teamDetailViewModel = viewModel)
         }
     }
 }
