@@ -2,7 +2,7 @@ package com.salim.nbastatsapp.player.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.salim.nbastatsapp.team.GetTeamListUseCase
+import com.salim.nbastatsapp.team.list.GetTeamListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

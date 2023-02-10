@@ -35,4 +35,12 @@ interface NbaStatsApiService {
     @GET("teams")
     @Wrapped(path = ["data"])
     suspend fun getTeams(): List<Team>
+
+    /**
+     * Retrieves info of [Team] objects from the API.
+     *
+     * @return [Team] object.
+     */
+    @GET("teams/{id}")
+    suspend fun getTeamInfo(@Path("id") id: Int): Team
 }

@@ -1,4 +1,4 @@
-package com.salim.nbastatsapp.team
+package com.salim.nbastatsapp.team.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.salim.nbastatsapp.R
+import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.utilities.LogoManager
 
 @Composable

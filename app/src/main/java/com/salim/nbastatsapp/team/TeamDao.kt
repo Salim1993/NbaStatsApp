@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Update
 import androidx.room.Delete
 import androidx.room.Query
+import com.salim.nbastatsapp.player.Player
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,4 +29,7 @@ interface TeamDao {
 
     @Query("SELECT * FROM teams WHERE id = :id")
     fun getTeamById(id: Int): Flow<Team>
+
+    @Query("SELECT * FROM teams WHERE id = :id")
+    suspend fun getTeamByIdSynchronous(id: Int): Team
 }

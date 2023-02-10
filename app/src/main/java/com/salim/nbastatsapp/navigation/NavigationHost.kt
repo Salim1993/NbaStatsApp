@@ -15,8 +15,8 @@ import com.salim.nbastatsapp.player.details.PlayerDetailScreen
 import com.salim.nbastatsapp.player.details.PlayerDetailViewModel
 import com.salim.nbastatsapp.player.list.PlayerListScreen
 import com.salim.nbastatsapp.player.list.PlayerListViewModel
-import com.salim.nbastatsapp.team.TeamListScreen
-import com.salim.nbastatsapp.team.TeamListViewModel
+import com.salim.nbastatsapp.team.list.TeamListScreen
+import com.salim.nbastatsapp.team.list.TeamListViewModel
 
 @Composable
 fun NavigationHost(

@@ -1,6 +1,7 @@
-package com.salim.nbastatsapp.team
+package com.salim.nbastatsapp.team.list
 
 import com.salim.nbastatsapp.network.NbaStatsApiService
+import com.salim.nbastatsapp.team.TeamDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
