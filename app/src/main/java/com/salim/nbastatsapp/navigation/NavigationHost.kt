@@ -1,5 +1,7 @@
 package com.salim.nbastatsapp.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -17,11 +19,12 @@ import com.salim.nbastatsapp.player.list.PlayerListViewModel
 @Composable
 fun NavigationHost(
     modifier: Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    scaffoldPadding: PaddingValues
 ) {
     NavHost(
         navController = navController,
-        modifier = modifier,
+        modifier = modifier.padding(bottom = scaffoldPadding.calculateBottomPadding()),
         startDestination = PlayerListNavigationInfo.PLAYER_LIST_DESTINATION_ROUTE
     ) {
         composable(route = PlayerListNavigationInfo.PLAYER_LIST_DESTINATION_ROUTE) {
