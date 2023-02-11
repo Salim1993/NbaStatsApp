@@ -1,7 +1,7 @@
 package com.salim.nbastatsapp.navigation
 
 object PlayerDetailsNavigationInfo {
-    const val PLAYER_DETAIL_DESTINATION_ARG = "player_name"
+    const val PLAYER_DETAIL_DESTINATION_ARG = "player_id"
     private const val PLAYER_DETAIL_DESTINATION_ROOT = "player_details"
     const val PLAYER_DETAIL_DESTINATION_ROUTE =
         "$PLAYER_DETAIL_DESTINATION_ROOT/{$PLAYER_DETAIL_DESTINATION_ARG}"

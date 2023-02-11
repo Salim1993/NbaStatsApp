@@ -1,11 +1,11 @@
 package com.salim.nbastatsapp.team.details
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.salim.nbastatsapp.R
+import com.salim.nbastatsapp.player.Player
+import com.salim.nbastatsapp.player.list.PlayerCard
 import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.ui.theme.ComposeSizeConstants
 import com.salim.nbastatsapp.utilities.LogoManager
@@ -36,12 +38,17 @@ fun TeamDetailScreen(
             name = ""
         )
     )
-    
-    PlayerDetailsPage(modifier = modifier, team = teamState.value)
+
+    val playerListState = teamDetailViewModel.playerListFlow.collectAsState(initial = emptyList())
+
+    Column(modifier = modifier) {
+        TeamDetailsPage(modifier = modifier, team = teamState.value)
+        PlayerList(modifier = modifier, playerList = playerListState.value)
+    }
 }
 
 @Composable
-fun PlayerDetailsPage(
+fun TeamDetailsPage(
     modifier: Modifier,
     team: Team
 ) {
@@ -61,19 +68,19 @@ fun PlayerDetailsPage(
             )
         }
 
-        CreatePlayerDetailText(
+        CreateTeamDetailText(
             modifier = modifier,
             text = team.fullName,
             stringResourceId = R.string.team
         )
 
-        CreatePlayerDetailText(
+        CreateTeamDetailText(
             modifier = modifier,
             text = team.city,
             stringResourceId = R.string.city
         )
 
-        CreatePlayerDetailText(
+        CreateTeamDetailText(
             modifier = modifier,
             text = team.conference,
             stringResourceId = R.string.conference
@@ -82,7 +89,51 @@ fun PlayerDetailsPage(
 }
 
 @Composable
-fun CreatePlayerDetailText(
+fun PlayerList(
+    modifier: Modifier,
+    playerList: List<Player>
+) {
+    Column(modifier = modifier) {
+        Text(
+            modifier = modifier.padding(8.dp),
+            style = MaterialTheme.typography.headlineMedium,
+            text = stringResource(id = R.string.player_list))
+        
+        LazyColumn(modifier = modifier) {
+            items(playerList) {
+                TeamPlayerDetail(modifier = modifier, player = it)
+            }
+        }
+    }
+}
+
+@Composable
+fun TeamPlayerDetail(
+    modifier: Modifier,
+    player: Player
+) {
+    Row(
+        modifier = modifier
+    ) {
+        Text(modifier = modifier.padding(8.dp), text = player.getFullName())
+        Box(modifier = Modifier.weight(1.0f)) {
+            val text: String = if (player.position.isEmpty()) {
+                stringResource(R.string.no_position)
+            } else {
+                stringResource(R.string.position, player.getFullPosition())
+            }
+            Text(
+                modifier = modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(8.dp),
+                text = text
+            )
+        }
+    }
+}
+
+@Composable
+fun CreateTeamDetailText(
     modifier: Modifier,
     text: String,
     stringResourceId: Int
