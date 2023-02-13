@@ -4,9 +4,8 @@ import com.salim.nbastatsapp.network.NbaStatsApiService
 import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.player.PlayerDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import timber.log.Timber
@@ -22,8 +21,8 @@ class GetPlayerInfoUseCase @Inject constructor(
     private val playerDao: PlayerDao
 ) {
 
-    private val _playerFlow = MutableSharedFlow<Player>()
-    val playerFlow = _playerFlow.asSharedFlow()
+    private val _playerFlow = MutableStateFlow(Player.returnEmptyPlayer())
+    val playerFlow = _playerFlow.asStateFlow()
 
     /**
      * Makes a call to the API to retrieve a info of a [Player] object.

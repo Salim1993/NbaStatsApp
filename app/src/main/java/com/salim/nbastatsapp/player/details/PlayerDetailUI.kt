@@ -25,18 +25,7 @@ fun PlayerDetailScreen(
     modifier: Modifier,
     playerDetailViewModel: PlayerDetailViewModel = viewModel()
 ) {
-    val playerState = playerDetailViewModel.playerFlow.collectAsState(
-        initial = Player(
-            id = 0,
-            firstName = "",
-            heightFeet = null,
-            heightInches = null,
-            lastName = "",
-            position = "",
-            teamName = "",
-            weightPounds = null
-        )
-    )
+    val playerState = playerDetailViewModel.playerFlow.collectAsState()
     
     PlayerDetailsPage(modifier = modifier, player = playerState.value)
 }

@@ -38,4 +38,20 @@ data class Team(
     @ColumnInfo(name = "name")
     @Json(name = "name")
     val name: String
-)
+) {
+
+    companion object {
+
+        fun returnEmptyTeam(): Team {
+            return Team(
+                id = 0,
+                abbreviation = "",
+                city = "",
+                conference = "",
+                division = "",
+                fullName = "",
+                name = ""
+            )
+        }
+    }
+}

@@ -1,5 +1,6 @@
 package com.salim.nbastatsapp.team.details
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,11 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.salim.nbastatsapp.R
 import com.salim.nbastatsapp.player.Player
@@ -28,25 +29,16 @@ import com.salim.nbastatsapp.utilities.LogoManager
 @Composable
 fun TeamDetailScreen(
     modifier: Modifier,
-    teamDetailViewModel: TeamDetailViewModel = viewModel()
+    teamDetailViewModel: TeamDetailViewModel,
+    onPlayerClick: (Int) -> Unit = {}
 ) {
-    val teamState = teamDetailViewModel.teamFlow.collectAsState(
-        initial = Team(
-            id = 0,
-            abbreviation = "",
-            city = "",
-            conference = "",
-            division = "",
-            fullName = "",
-            name = ""
-        )
-    )
+    val teamState by teamDetailViewModel.teamFlow.collectAsState()
 
     val playerListState = teamDetailViewModel.playerListFlow.collectAsState(initial = emptyList())
 
     Column(modifier = modifier) {
-        TeamDetailsPage(modifier = modifier, team = teamState.value)
-        PlayerList(modifier = modifier, playerList = playerListState.value)
+        TeamDetailsPage(modifier = modifier, team = teamState)
+        PlayerList(modifier = modifier, playerList = playerListState.value, onPlayerClick = onPlayerClick)
     }
 }
 
@@ -92,9 +84,22 @@ fun TeamDetailsPage(
 }
 
 @Composable
+fun CreateTeamDetailText(
+    modifier: Modifier,
+    text: String,
+    stringResourceId: Int
+) {
+    Text(
+        modifier = modifier.padding(8.dp),
+        text = stringResource(stringResourceId, text)
+    )
+}
+
+@Composable
 fun PlayerList(
     modifier: Modifier,
-    playerList: List<Player>
+    playerList: List<Player>,
+    onPlayerClick: (Int) -> Unit = {}
 ) {
     Column(modifier = modifier) {
         Text(
@@ -104,7 +109,7 @@ fun PlayerList(
         
         LazyColumn(modifier = modifier) {
             items(playerList) {
-                TeamPlayerDetail(modifier = modifier, player = it)
+                TeamPlayerDetail(modifier = modifier, player = it, onPlayerClick = onPlayerClick)
             }
         }
     }
@@ -113,10 +118,13 @@ fun PlayerList(
 @Composable
 fun TeamPlayerDetail(
     modifier: Modifier,
-    player: Player
+    player: Player,
+    onPlayerClick: (Int) -> Unit = {}
 ) {
     Row(
-        modifier = modifier
+        modifier = modifier.clickable {
+            onPlayerClick(player.id)
+        }
     ) {
         Text(modifier = modifier.padding(8.dp), text = player.getFullName())
         Box(modifier = Modifier.weight(1.0f)) {
@@ -133,17 +141,5 @@ fun TeamPlayerDetail(
             )
         }
     }
-}
-
-@Composable
-fun CreateTeamDetailText(
-    modifier: Modifier,
-    text: String,
-    stringResourceId: Int
-) {
-    Text(
-        modifier = modifier.padding(8.dp),
-        text = stringResource(stringResourceId, text)
-    )
 }
 

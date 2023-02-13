@@ -6,9 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.salim.nbastatsapp.navigation.TeamDetailsNavigationInfo
 import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.player.PlayerDao
+import com.salim.nbastatsapp.team.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,8 +25,8 @@ class TeamDetailViewModel @Inject constructor(
 
     val teamFlow = getTeamInfoUseCase.teamFlow
 
-    private val _playerListFlow = MutableSharedFlow<List<Player>>()
-    val playerListFlow = _playerListFlow.asSharedFlow()
+    private val _playerListFlow = MutableStateFlow<List<Player>>(emptyList())
+    val playerListFlow = _playerListFlow.asStateFlow()
 
     val id = savedStateHandle.get<Int>(TeamDetailsNavigationInfo.TEAM_DETAIL_DESTINATION_ARG)
 

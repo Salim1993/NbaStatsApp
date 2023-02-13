@@ -66,12 +66,19 @@ fun NavigationHost(
             })
         ) {
             val viewModel = hiltViewModel<TeamDetailViewModel>()
-            TeamDetailScreen(modifier = modifier, teamDetailViewModel = viewModel)
+            TeamDetailScreen(
+                modifier = modifier,
+                teamDetailViewModel = viewModel,
+                onPlayerClick = {
+                    navController.navigateSingleTopTo(PlayerDetailsNavigationInfo.buildPlayerDetailRoute(it))
+                }
+            )
         }
     }
 }
 
 fun NavHostController.navigateSingleTopTo(route: String) =
     this.navigate(route) {
+        launchSingleTop = true
         restoreState = true
     }

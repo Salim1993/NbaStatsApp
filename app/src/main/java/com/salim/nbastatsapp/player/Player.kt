@@ -82,6 +82,22 @@ data class Player(
     }
 
     fun getFullHeight() = "$heightFeet feet $heightInches inches"
+
+    companion object {
+
+        fun returnEmptyPlayer(): Player {
+            return Player(
+                id = 0,
+                firstName = "",
+                heightFeet = null,
+                heightInches = null,
+                lastName = "",
+                position = "",
+                teamName = "",
+                weightPounds = null
+            )
+        }
+    }
 }
 
 data class PlayerAndTeam(
