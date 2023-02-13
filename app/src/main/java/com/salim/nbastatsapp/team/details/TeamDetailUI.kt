@@ -1,6 +1,10 @@
 package com.salim.nbastatsapp.team.details
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -17,7 +21,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.salim.nbastatsapp.R
 import com.salim.nbastatsapp.player.Player
-import com.salim.nbastatsapp.player.list.PlayerCard
 import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.ui.theme.ComposeSizeConstants
 import com.salim.nbastatsapp.utilities.LogoManager

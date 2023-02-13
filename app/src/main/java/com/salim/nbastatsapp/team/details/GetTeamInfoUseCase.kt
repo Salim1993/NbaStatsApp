@@ -1,7 +1,6 @@
 package com.salim.nbastatsapp.team.details
 
 import com.salim.nbastatsapp.network.NbaStatsApiService
-import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.team.TeamDao
 import kotlinx.coroutines.Dispatchers

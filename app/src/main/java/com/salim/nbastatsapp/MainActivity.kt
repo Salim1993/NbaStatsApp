@@ -12,11 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.salim.nbastatsapp.navigation.NavigationHost
-import com.salim.nbastatsapp.navigation.PlayerListNavigationInfo
-import com.salim.nbastatsapp.navigation.TeamsListNavigationInfo
-import com.salim.nbastatsapp.navigation.navigateSingleTopTo
 import com.salim.nbastatsapp.ui.BottomNavigationBar
-import com.salim.nbastatsapp.ui.BottomNavigationItems
 import com.salim.nbastatsapp.ui.theme.NbaStatsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,16 +32,7 @@ fun NbaStatsApp() {
         val navController = rememberNavController()
         // A surface container using the 'background' color from the theme
         Scaffold(
-            bottomBar = { BottomNavigationBar(onClick = {
-                when(it) {
-                    BottomNavigationItems.PlayerList -> navController.navigateSingleTopTo(
-                        PlayerListNavigationInfo.PLAYER_LIST_DESTINATION_ROUTE
-                    )
-                    BottomNavigationItems.TeamList ->  navController.navigateSingleTopTo(
-                        TeamsListNavigationInfo.TEAMS_LIST_DESTINATION_ROUTE
-                    )
-                }
-            }) }
+            bottomBar = { BottomNavigationBar(navController) }
         ) { contentPadding ->
             NavigationHost(
                 modifier = Modifier.padding(),
