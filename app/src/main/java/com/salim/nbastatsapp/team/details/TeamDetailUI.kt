@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -108,8 +110,10 @@ fun PlayerList(
             text = stringResource(id = R.string.player_list))
         
         LazyColumn(modifier = modifier) {
-            items(playerList) {
-                TeamPlayerDetail(modifier = modifier, player = it, onPlayerClick = onPlayerClick)
+            itemsIndexed(playerList) { index, item ->
+                TeamPlayerDetail(modifier = modifier, player = item, onPlayerClick = onPlayerClick)
+                if(index < playerList.lastIndex)
+                    Divider()
             }
         }
     }
