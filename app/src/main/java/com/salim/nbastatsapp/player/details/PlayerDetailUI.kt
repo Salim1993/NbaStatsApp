@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,23 +19,29 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.salim.nbastatsapp.R
 import com.salim.nbastatsapp.player.Player
+import com.salim.nbastatsapp.player.PlayerAndTeam
+import com.salim.nbastatsapp.team.Team
 import com.salim.nbastatsapp.ui.theme.ComposeSizeConstants
 import com.salim.nbastatsapp.utilities.LogoManager
 
 @Composable
 fun PlayerDetailScreen(
     modifier: Modifier,
-    playerDetailViewModel: PlayerDetailViewModel = viewModel()
+    playerDetailViewModel: PlayerDetailViewModel = viewModel(),
+    teamOnClick: (Int) -> Unit = {}
 ) {
-    val playerState = playerDetailViewModel.playerFlow.collectAsState()
+    val playerState by playerDetailViewModel.playerFlow.collectAsState()
+    val teamState by playerDetailViewModel.teamFlow.collectAsState()
     
-    PlayerDetailsPage(modifier = modifier, player = playerState.value)
+    PlayerDetailsPage(modifier = modifier, player = playerState, team = teamState, teamOnClick = teamOnClick)
 }
 
 @Composable
 fun PlayerDetailsPage(
     modifier: Modifier,
-    player: Player
+    player: Player,
+    team: Team,
+    teamOnClick: (Int) -> Unit = {}
 ) {
     Column(modifier = modifier
         .fillMaxWidth()
@@ -87,6 +95,15 @@ fun PlayerDetailsPage(
                 text = player.weightPounds.toString(),
                 stringResourceId = R.string.weight
             )
+        }
+
+        Button(
+            modifier = modifier.padding(8.dp).fillMaxWidth(),
+            onClick = {
+                teamOnClick(team.id)
+            }
+        ) {
+            Text(stringResource(id = R.string.go_to_team))
         }
     }
 }

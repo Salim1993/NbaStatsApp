@@ -47,7 +47,13 @@ fun NavigationHost(
             })
         ) {
             val viewModel = hiltViewModel<PlayerDetailViewModel>()
-            PlayerDetailScreen(modifier = modifier, playerDetailViewModel = viewModel)
+            PlayerDetailScreen(
+                modifier = modifier,
+                playerDetailViewModel = viewModel,
+                teamOnClick = {
+                    navController.navigateSingleTopTo(TeamDetailsNavigationInfo.buildTeamDetailRoute(it))
+                }
+            )
         }
         composable(route = TeamsListNavigationInfo.TEAMS_LIST_DESTINATION_ROUTE) {
             val viewModel = hiltViewModel<TeamListViewModel>()

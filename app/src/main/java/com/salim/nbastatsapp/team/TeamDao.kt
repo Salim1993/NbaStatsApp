@@ -32,4 +32,7 @@ interface TeamDao {
 
     @Query("SELECT * FROM teams WHERE id = :id")
     suspend fun getTeamByIdSynchronous(id: Int): Team
+
+    @Query("SELECT * FROM teams WHERE full_name = :fullName")
+    suspend fun getTeamByNameSynchronous(fullName: String): Team
 }

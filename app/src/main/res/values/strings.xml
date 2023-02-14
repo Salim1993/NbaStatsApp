@@ -17,6 +17,7 @@
     <string name="weight">Weight: %s lb</string>
     <string name="weight_unavailable">Weight: Unavailable</string>
     <string name="no_position">No Position</string>
+    <string name="go_to_team">Go To Team</string>
 
     <!-- Team Details -->
     <string name="city">City: %s</string>

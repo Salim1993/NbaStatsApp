@@ -31,10 +31,10 @@ class GetTeamInfoUseCase @Inject constructor(
      */
     suspend fun getTeamInfo(id: Int) {
         withContext(Dispatchers.IO) {
-            var player = teamDao.getTeamByIdSynchronous(id)
+            var team = teamDao.getTeamByIdSynchronous(id)
             try {
-                player = nbaStatsApiService.getTeamInfo(id)
-                teamDao.insertTeam(player)
+                team = nbaStatsApiService.getTeamInfo(id)
+                teamDao.insertTeam(team)
             } catch (e: UnknownHostException) {
                 Timber.e("Got unknown exception in getTeamINfoApi")
             } catch (e: HttpException) {
@@ -42,7 +42,24 @@ class GetTeamInfoUseCase @Inject constructor(
                     "Got http exception in getTeamInfoApi. Http Status: ${e.code()} - Http Message: ${e.message()}"
                 )
             }
-            _teamFlow.emit(player)
+            _teamFlow.emit(team)
+        }
+    }
+
+    suspend fun getTeamInfoUsingName(name: String) {
+        withContext(Dispatchers.IO) {
+            var team = teamDao.getTeamByNameSynchronous(name)
+            try {
+                team = nbaStatsApiService.getTeamInfo(team.id)
+                teamDao.insertTeam(team)
+            } catch (e: UnknownHostException) {
+                Timber.e("Got unknown exception in getTeamINfoApi")
+            } catch (e: HttpException) {
+                Timber.e(
+                    "Got http exception in getTeamInfoApi. Http Status: ${e.code()} - Http Message: ${e.message()}"
+                )
+            }
+            _teamFlow.emit(team)
         }
     }
 }
