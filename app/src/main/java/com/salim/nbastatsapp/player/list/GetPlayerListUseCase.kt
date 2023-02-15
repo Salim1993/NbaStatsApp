@@ -1,6 +1,7 @@
 package com.salim.nbastatsapp.player.list
 
 import com.salim.nbastatsapp.network.NbaStatsApiService
+import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.player.PlayerDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,7 +29,7 @@ class GetPlayerListUseCase @Inject constructor(
     suspend fun getPlayers(){
         try {
             withContext(Dispatchers.IO) {
-                val players = nbaStatsApiService.getPlayers()
+                val players = nbaStatsApiService.getPlayers(1)
                 playerDao.insertPlayerList(players)
             }
         } catch (e: UnknownHostException) {

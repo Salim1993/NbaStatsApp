@@ -5,6 +5,7 @@ import com.salim.nbastatsapp.team.Team
 import com.serjltt.moshi.adapters.Wrapped
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * An interface that defines the API calls to retrieve different NBA info objects.
@@ -17,7 +18,7 @@ interface NbaStatsApiService {
      */
     @GET("players")
     @Wrapped(path = ["data"])
-    suspend fun getPlayers(): List<Player>
+    suspend fun getPlayers(@Query("page") page: Int): List<Player>
 
     /**
      * Retrieves info of [Player] objects from the API.
