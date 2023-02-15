@@ -128,10 +128,13 @@ dependencies {
     implementation 'io.coil-kt:coil-compose:2.2.2'
 
     // paging
-    def paging_version = "3.1.1"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
-    testImplementation "androidx.paging:paging-common-ktx:$paging_version"
-    implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+    implementation ("androidx.paging:paging-runtime-ktx:3.1.1") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    implementation ("androidx.paging:paging-compose:1.0.0-alpha18") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    testImplementation "androidx.paging:paging-common-ktx:3.1.1"
 }
 
 kapt {
