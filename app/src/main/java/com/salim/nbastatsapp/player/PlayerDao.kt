@@ -1,5 +1,6 @@
 package com.salim.nbastatsapp.player
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -27,6 +28,9 @@ interface PlayerDao {
 
     @Query("SELECT * FROM players")
     fun getAllPlayers(): Flow<List<Player>>
+
+    @Query("SELECT * FROM players")
+    fun getAllPlayersPagingSource(): PagingSource<Int, Player>
 
     @Query("SELECT * FROM players WHERE id = :id")
     fun getPlayerById(id: Int): Flow<Player>

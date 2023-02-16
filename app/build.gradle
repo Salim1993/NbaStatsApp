@@ -134,6 +134,9 @@ dependencies {
     implementation ("androidx.paging:paging-compose:1.0.0-alpha18") {
         exclude group: 'org.jetbrains.kotlin'
     }
+    implementation ("androidx.room:room-paging:2.5.0") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
     testImplementation "androidx.paging:paging-common-ktx:3.1.1"
 }
 

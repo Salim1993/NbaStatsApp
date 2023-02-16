@@ -2,6 +2,7 @@ package com.salim.nbastatsapp.player.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+@OptIn(ExperimentalPagingApi::class)
 @HiltViewModel
 class PlayerListViewModel @Inject constructor(
     private val getTeamListUseCase: GetTeamListUseCase,
@@ -22,9 +24,10 @@ class PlayerListViewModel @Inject constructor(
 
     //val playerList = getPlayerListUseCase.playerListFlow
     val playerListFlow = Pager(
-        PagingConfig(pageSize = PlayerPagingSource.PLAYER_PAGING_SIZE)
+        config = PagingConfig(pageSize = PlayerListRemoteMediator.PLAYER_PAGING_SIZE),
+        remoteMediator = PlayerListRemoteMediator(nbaStatsApiService, playerDao)
     ) {
-        PlayerPagingSource(nbaStatsApiService, playerDao)
+        playerDao.getAllPlayersPagingSource()
     }.flow.cachedIn(viewModelScope)
 
     init {

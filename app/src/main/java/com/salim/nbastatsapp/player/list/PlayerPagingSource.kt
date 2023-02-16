@@ -36,6 +36,7 @@ class PlayerPagingSource @Inject constructor(
         }
     }
 
+    @Suppress("ReturnCount")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Player> {
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
         try {
@@ -48,11 +49,6 @@ class PlayerPagingSource @Inject constructor(
                 null
             } else {
                 pageIndex + 1
-            }
-            val prevKey = if (pageIndex == STARTING_PAGE_INDEX) {
-                null
-            } else {
-                pageIndex
             }
             return LoadResult.Page(
                 data = players,
@@ -69,7 +65,7 @@ class PlayerPagingSource @Inject constructor(
     }
 
     companion object {
-        private const val STARTING_PAGE_INDEX = 1
+        private const val STARTING_PAGE_INDEX = 0
         const val PLAYER_PAGING_SIZE = 25
     }
 }
