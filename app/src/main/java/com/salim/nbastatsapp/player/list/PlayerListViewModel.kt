@@ -18,14 +18,14 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerListViewModel @Inject constructor(
     private val getTeamListUseCase: GetTeamListUseCase,
-    private val nbaStatsApiService: NbaStatsApiService,
-    private val playerDao: PlayerDao
+    private val playerDao: PlayerDao,
+    playerListRemoteMediator: PlayerListRemoteMediator
 ): ViewModel() {
 
     //val playerList = getPlayerListUseCase.playerListFlow
     val playerListFlow = Pager(
         config = PagingConfig(pageSize = PlayerListRemoteMediator.PLAYER_PAGING_SIZE),
-        remoteMediator = PlayerListRemoteMediator(nbaStatsApiService, playerDao)
+        remoteMediator = playerListRemoteMediator
     ) {
         playerDao.getAllPlayersPagingSource()
     }.flow.cachedIn(viewModelScope)

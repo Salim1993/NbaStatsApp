@@ -1,10 +1,13 @@
 package com.salim.nbastatsapp.player.list
 
-import androidx.paging.*
-import com.salim.nbastatsapp.database.NbaAppDatabase
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.RemoteMediator
+import androidx.paging.LoadType
+import androidx.paging.PagingState
 import com.salim.nbastatsapp.network.NbaStatsApiService
 import com.salim.nbastatsapp.player.Player
 import com.salim.nbastatsapp.player.PlayerDao
+import com.salim.nbastatsapp.utilities.SharedPreferencesWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -18,10 +21,13 @@ import javax.inject.Inject
 class PlayerListRemoteMediator @Inject constructor(
     private val nbaStatsApiService: NbaStatsApiService,
     private val playerDao: PlayerDao,
-    //private val nbaAppDatabase: NbaAppDatabase
+    private val sharedPreferencesWrapper: SharedPreferencesWrapper
 ): RemoteMediator<Int, Player>() {
 
-    var currentPage = FIRST_PAGE_LOAD_KEY
+    var currentPage = sharedPreferencesWrapper.getInt(LAST_PLAYER_PAGE_PREF)
+    init {
+        Timber.d("Current page saved in cache is: $currentPage")
+    }
 
     override suspend fun load(
         loadType: LoadType,
@@ -29,13 +35,18 @@ class PlayerListRemoteMediator @Inject constructor(
     ): MediatorResult {
         try {
             currentPage = when (loadType) {
-                LoadType.REFRESH -> FIRST_PAGE_LOAD_KEY
+                LoadType.REFRESH -> {
+                    Timber.d("Refreshing Mediator")
+                    FIRST_PAGE_LOAD_KEY
+                }
                 LoadType.PREPEND ->
                     return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
+                    Timber.d("Appending Mediator, with Page: ${currentPage + 1}")
                     currentPage + 1
                 }
             }
+            sharedPreferencesWrapper.saveInt(LAST_PLAYER_PAGE_PREF, currentPage)
 
             // get api form network
             val players: List<Player> = withContext(Dispatchers.IO) {
@@ -59,10 +70,10 @@ class PlayerListRemoteMediator @Inject constructor(
         }
     }
 
-    /* TODO: need to figure out how to save time last update in database, for check below
     override suspend fun initialize(): InitializeAction {
-        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
-        return if (System.currentTimeMillis() - nbaAppDatabase.() <= cacheTimeout)
+        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
+        val lastTimeRefreshed = sharedPreferencesWrapper.getLong(REFRESH_TIME_PREF)
+        return if (System.currentTimeMillis() - lastTimeRefreshed <= cacheTimeout)
         {
             // Cached data is up-to-date, so there is no need to re-fetch
             // from the network.
@@ -71,13 +82,16 @@ class PlayerListRemoteMediator @Inject constructor(
             // Need to refresh cached data from network; returning
             // LAUNCH_INITIAL_REFRESH here will also block RemoteMediator's
             // APPEND and PREPEND from running until REFRESH succeeds.
+            sharedPreferencesWrapper.saveLong(REFRESH_TIME_PREF, System.currentTimeMillis())
             InitializeAction.LAUNCH_INITIAL_REFRESH
         }
     }
-     */
 
     companion object {
         private const val FIRST_PAGE_LOAD_KEY = 0
+        private const val REFRESH_TIME_PREF = "REFRESH_TIME_PREF"
+        private const val LAST_PLAYER_PAGE_PREF = "LAST_PLAYER_PAGE_PREF"
+
         const val PLAYER_PAGING_SIZE = 25
     }
 }
